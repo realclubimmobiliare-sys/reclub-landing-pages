@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReClub CRM | Pannello di Supervisione & Gestione Nazionale</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="https://reclubitalia.it/reclub_hero_bg.png" type="image/png">
+    
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #070a13; /* Ultra deep luxury dark blue */
+            --bg-card: #0d1222; /* Sleek navy dark card */
+            --border-color: rgba(197, 160, 89, 0.15); /* Soft gold-tinted border */
+            --primary: #0c2340; /* Navy */
+            --secondary: #c5a059; /* Gold/Bronze */
+            --secondary-hover: #b38e47;
+            --secondary-glow: rgba(197, 160, 89, 0.15);
+            --text-main: #f1f5f9; /* Near white for dark theme readability */
+            --text-muted: #94a3b8; /* Muted slate */
+            --success: #10b981; /* Premium emerald green */
+            --warning: #f59e0b; /* Amber */
+            --danger: #ef4444; /* Rose */
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* LOGIN SCREEN */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0f172a 0%, var(--bg-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+        }
+
+        .login-logo {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .login-logo span {
+            color: var(--secondary);
+        }
+
+        .login-tagline {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .login-form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+            transition: all 0.25s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 0 4px var(--secondary-glow);
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, var(--secondary), #b38e47);
+            color: var(--primary);
+            border: none;
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(197, 160, 89, 0.35);
+            background: linear-gradient(135deg, #d4b069, var(--secondary));
+        }
+
+        .login-error {
+            color: var(--danger);
+            font-size: 13px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* MAIN LAYOUT */
+        .crm-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        aside {
+            width: 260px;
+            background-color: var(--bg-card);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .aside-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .aside-logo {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .aside-logo span {
+            color: var(--secondary);
+        }
+
+        .aside-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--secondary);
+            background: var(--secondary-glow);
+            padding: 4px 10px;
+            border-radius: 50px;
+            margin-top: 6px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 14.5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-item.active {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(197, 160, 89, 0.15) 0%, rgba(197, 160, 89, 0.02) 100%);
+            border-left: 3px solid var(--secondary);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+        }
+
+        .aside-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .btn-logout {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            color: var(--danger);
+        }
+
+        /* MAIN CONTENT AREA */
+        main {
+            flex: 1;
+            padding: 40px;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 36px;
+        }
+
+        .main-title h2 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .main-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .btn-refresh {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: var(--font-body);
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-refresh:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* KPI DASHBOARD CARDS */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .kpi-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kpi-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .kpi-icon-wrapper {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background-color: rgba(197, 160, 89, 0.1);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .kpi-value {
+            font-family: var(--font-display);
+            font-size: 30px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .kpi-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .kpi-subtext span {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* SECTION VIEWS */
+        .section-view {
+            display: none;
+        }
+
+        .section-view.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RECENT ACTIVITY / TABLES CONTAINER */
+        .data-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 24px;
+        }
+
+        .data-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .data-card-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .search-filter-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 13.5px;
+            width: 220px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .status-select-filter {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 13.5px;
+            cursor: pointer;
+        }
+
+        /* DATA TABLES */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .crm-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .crm-table th {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .crm-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        .crm-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .crm-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+
+        /* BADGES */
+        .status-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-in-verifica { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .status-assegnazione { background-color: rgba(99, 102, 241, 0.1); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.2); }
+        .status-assegnato { background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .status-mandato { background-color: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .status-rogito { background-color: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
+        .status-rifiutato { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+
+        .status-attesa { background-color: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .status-attivo { background-color: rgba(16, 185, 129, 0.15); color: var(--success); }
+
+        /* INTERACTIVE INPUTS IN TABLES */
+        .status-select-inline {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .status-select-inline:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .btn-action-sm {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: none;
+            font-family: var(--font-display);
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action-gold {
+            background-color: var(--secondary-glow);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+
+        .btn-action-gold:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* MODAL */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            padding: 36px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.show .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .modal-body {
+            margin-bottom: 28px;
+        }
+
+        .modal-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .modal-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 14.5px;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-modal-cancel {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .btn-modal-confirm {
+            background: linear-gradient(135deg, var(--secondary), #b38e47);
+            color: var(--primary);
+            border: none;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .btn-modal-confirm:disabled {
+            background: #475569;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        /* LOADING BLOCK */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(7, 10, 19, 0.8);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 24px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid rgba(197, 160, 89, 0.1);
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* NOTIFICATIONS Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .toast-success { color: var(--success); }
+        .toast-error { color: var(--danger); }
+    </style>
+</head>
+<body>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="crm-toast" class="toast">
+        <span id="toast-icon-box" class="toast-icon">✓</span>
+        <span id="toast-message">Messaggio notifica crm</span>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <div class="login-logo">Re<span>Club</span></div>
+            <div class="login-tagline">CRM Amministrativo</div>
+            <form id="login-form">
+                <div class="login-form-group">
+                    <label class="login-label" for="admin-password">Chiave d'Accesso Privata</label>
+                    <input type="password" id="admin-password" class="login-input" placeholder="••••••••" required autofocus>
+                </div>
+                <button type="submit" class="btn-login">Accedi al CRM</button>
+            </form>
+            <div id="login-error" class="login-error">Password errata. Riprova.</div>
+        </div>
+    </div>
+
+    <!-- CRM MAIN LAYOUT -->
+    <div class="crm-container">
+        <!-- SIDEBAR -->
+        <aside>
+            <div class="aside-header">
+                <a href="#" class="aside-logo">Re<span>Club</span></a>
+                <br>
+                <span class="aside-badge">Supervisore</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item active" data-target="view-dashboard">
+                    <span class="nav-icon">📊</span> Dashboard
+                </li>
+                <li class="nav-item" data-target="view-leads">
+                    <span class="nav-icon">🏡</span> Segnalazioni
+                </li>
+                <li class="nav-item" data-target="view-ambassadors">
+                    <span class="nav-icon">🤝</span> Ambassador
+                </li>
+                <li class="nav-item" data-target="view-agencies">
+                    <span class="nav-icon">🏢</span> Agenzie Partner
+                </li>
+            </ul>
+
+            <div class="aside-footer">
+                <span id="btn-logout" class="btn-logout">Scollegati</span>
+            </div>
+        </aside>
+
+        <!-- MAIN WINDOW -->
+        <main style="position: relative;">
+            <!-- Loading Overlay -->
+            <div id="loading-overlay" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Header -->
+            <div class="main-header">
+                <div class="main-title">
+                    <h2 id="view-title">Dashboard Strategica</h2>
+                    <p id="view-subtitle">Benvenuto. Ecco una panoramica del tuo business in tempo reale.</p>
+                </div>
+                <button id="btn-refresh" class="btn-refresh">
+                    <span>🔄</span> Aggiorna Dati
+                </button>
+            </div>
+
+            <!-- VIEW: DASHBOARD -->
+            <div id="view-dashboard" class="section-view active">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Segnalazioni</span>
+                            <div class="kpi-icon-wrapper">🏡</div>
+                        </div>
+                        <div class="kpi-value" id="kpi-total-leads">0</div>
+                        <div class="kpi-subtext"><span id="kpi-pending-leads">0</span> in verifica di sblocco</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Ambassador</span>
+                            <div class="kpi-icon-wrapper">🤝</div>
+                        </div>
+                        <div class="kpi-value" id="kpi-total-ambassadors">0</div>
+                        <div class="kpi-subtext">Utenti attivi che segnalano</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Agenzie Partner</span>
+                            <div class="kpi-icon-wrapper">🏢</div>
+                        </div>
+                        <div class="kpi-value" id="kpi-total-agencies">0</div>
+                        <div class="kpi-subtext"><span id="kpi-pending-agencies">0</span> candidate in attesa</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Valore Generato</span>
+                            <div class="kpi-icon-wrapper">💰</div>
+                        </div>
+                        <div class="kpi-value" id="kpi-valore-stimato">€ 0</div>
+                        <div class="kpi-subtext">Massa stimata intermediabile</div>
+                    </div>
+                </div>
+
+                <!-- Recent Leads Block -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <div class="data-card-title">Ultime Segnalazioni Ricevute</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Lead</th>
+                                    <th>Data</th>
+                                    <th>Indirizzo Immobile</th>
+                                    <th>Tipologia</th>
+                                    <th>Valore Stimato</th>
+                                    <th>Ambassador</th>
+                                    <th>Stato</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-leads-tbody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Nessun dato caricato. Clicca su 'Aggiorna Dati'.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: LEADS -->
+            <div id="view-leads" class="section-view">
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <div class="data-card-title">Pipeline Segnalazioni</div>
+                        <div class="search-filter-box">
+                            <input type="text" id="search-leads" class="search-input" placeholder="Cerca indirizzo o nome...">
+                            <select id="filter-leads-status" class="status-select-filter">
+                                <option value="ALL">Tutti gli stati</option>
+                                <option value="In Verifica">In Verifica</option>
+                                <option value="Assegnazione In Corso">Assegnazione In Corso</option>
+                                <option value="Assegnato ad Agenzia">Assegnato ad Agenzia</option>
+                                <option value="Mandato Firmato">Mandato Firmato</option>
+                                <option value="Scouting Completato">Scouting Completato</option>
+                                <option value="Rifiutato">Rifiutato</option>
+                            </select>
+                            <button id="btn-export-leads" class="btn-refresh" style="font-size: 12px; padding: 6px 14px;">Esporta CSV</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Lead</th>
+                                    <th>Data</th>
+                                    <th>Proprietario</th>
+                                    <th>Indirizzo</th>
+                                    <th>Valore</th>
+                                    <th>Ambassador</th>
+                                    <th>Agenzia Assegnata</th>
+                                    <th>Stato</th>
+                                    <th>Smistamento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leads-tbody">
+                                <!-- Dinamico -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: AMBASSADORS -->
+            <div id="view-ambassadors" class="section-view">
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <div class="data-card-title">Anagrafica Ambassador</div>
+                        <div class="search-filter-box">
+                            <input type="text" id="search-ambassadors" class="search-input" placeholder="Cerca nome o telefono...">
+                            <button id="btn-export-ambassadors" class="btn-refresh" style="font-size: 12px; padding: 6px 14px;">Esporta CSV</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Ambassador</th>
+                                    <th>Data Iscrizione</th>
+                                    <th>Nome e Cognome</th>
+                                    <th>Email</th>
+                                    <th>Telefono</th>
+                                    <th>Segnalazioni Inviate</th>
+                                    <th>Stato</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ambassadors-tbody">
+                                <!-- Dinamico -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: AGENCIES -->
+            <div id="view-agencies" class="section-view">
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <div class="data-card-title">Agenzie Partner & Candidature B2B</div>
+                        <div class="search-filter-box">
+                            <input type="text" id="search-agencies" class="search-input" placeholder="Cerca agenzia o città...">
+                            <button id="btn-export-agencies" class="btn-refresh" style="font-size: 12px; padding: 6px 14px;">Esporta CSV</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Agenzia</th>
+                                    <th>Data Onboarding</th>
+                                    <th>Nome Agenzia</th>
+                                    <th>Città Presidiate</th>
+                                    <th>Referente</th>
+                                    <th>Email Referente</th>
+                                    <th>Telefono</th>
+                                    <th>Stato Profilo</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="agencies-tbody">
+                                <!-- Dinamico -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- DISPATCH MODAL -->
+    <div id="dispatch-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Smista Lead ad Agenzia Partner</h3>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px;">
+                    Seleziona l'agenzia partner a cui affidare la proposta esclusiva per l'immobile in <strong id="modal-lead-address" style="color:#ffffff;"></strong>.
+                </p>
+                <div class="form-group">
+                    <label class="modal-label" for="modal-agency-select">Agenzie Attive in Quella Zona</label>
+                    <select id="modal-agency-select" class="modal-select">
+                        <!-- Caricato dinamicamente -->
+                    </select>
+                </div>
+                <p style="font-size: 12px; color: var(--secondary); margin-top: 15px; font-style: italic;">
+                    Nota: L'invio della proposta invierà un'email all'agenzia con la scheda tecnica oscurata. I contatti telefonici e il nome del proprietario rimarranno bloccati finché l'agenzia non cliccherà su 'Accetta'.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-cancel" class="btn-modal-cancel">Annulla</button>
+                <button id="btn-modal-confirm" class="btn-modal-confirm" disabled>Invia Proposta Esclusiva</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CRM ENGINE -->
+    <script>
+        const SHEETS_URL = "https://script.google.com/macros/s/AKfycbz4A95oeduW3hr8qBJJ4CBoLjlF35uVqA2HG6Mt71pXyOPx5AYZXrATEzosdEr34e4M/exec";
+        
+        // Globals for local cache
+        let rawLeads = [];
+        let rawAmbassadors = [];
+        let rawAgencies = [];
+        let activeDispatchLeadId = null;
+
+        // Verify session token on load
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = sessionStorage.getItem("reclub_admin_token");
+            if (token === "ReClubAdmin2026") {
+                document.getElementById("login-screen").style.opacity = "0";
+                document.getElementById("login-screen").style.visibility = "hidden";
+                fetchCrmData();
+            }
+        });
+
+        // Login Submit
+        document.getElementById("login-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const pw = document.getElementById("admin-password").value;
+            if (pw === "ReClubAdmin2026") {
+                sessionStorage.setItem("reclub_admin_token", "ReClubAdmin2026");
+                document.getElementById("login-screen").style.opacity = "0";
+                document.getElementById("login-screen").style.visibility = "hidden";
+                showToast("Accesso autorizzato. Caricamento dati...", "success");
+                fetchCrmData();
+            } else {
+                document.getElementById("login-error").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("login-error").style.display = "none";
+                }, 3000);
+            }
+        });
+
+        // Logout
+        document.getElementById("btn-logout").addEventListener("click", () => {
+            sessionStorage.removeItem("reclub_admin_token");
+            window.location.reload();
+        });
+
+        // Navigation Tabs Handler
+        const navItems = document.querySelectorAll(".nav-item");
+        const sections = document.querySelectorAll(".section-view");
+        
+        navItems.forEach(item => {
+            item.addEventListener("click", () => {
+                // Remove active classes
+                navItems.forEach(nav => nav.classList.remove("active"));
+                sections.forEach(sec => sec.classList.remove("active"));
+                
+                // Add active to current
+                item.classList.add("active");
+                const target = item.getAttribute("data-target");
+                document.getElementById(target).classList.add("active");
+                
+                // Update title & subtitle
+                const title = document.getElementById("view-title");
+                const subtitle = document.getElementById("view-subtitle");
+                
+                if (target === "view-dashboard") {
+                    title.textContent = "Dashboard Strategica";
+                    subtitle.textContent = "Benvenuto. Ecco una panoramica del tuo business in tempo reale.";
+                } else if (target === "view-leads") {
+                    title.textContent = "Pipeline delle Segnalazioni";
+                    subtitle.textContent = "Supervisiona l'avanzamento dei lead immobiliari in tutta Italia.";
+                } else if (target === "view-ambassadors") {
+                    title.textContent = "Rete degli Ambassador";
+                    subtitle.textContent = "Anagrafica dei refertatori attivi e monitoraggio dei premi erogati.";
+                } else if (target === "view-agencies") {
+                    title.textContent = "Agenzie Convenzionate B2B";
+                    subtitle.textContent = "Attiva candidature e gestisci il tuo portafoglio agenzie partner.";
+                }
+            });
+        });
+
+        // Refresh Button
+        document.getElementById("btn-refresh").addEventListener("click", () => {
+            fetchCrmData();
+        });
+
+        // Toast Message Utility
+        function showToast(msg, type = "success") {
+            const toast = document.getElementById("crm-toast");
+            const icon = document.getElementById("toast-icon-box");
+            const messageBox = document.getElementById("toast-message");
+            
+            messageBox.textContent = msg;
+            
+            if (type === "success") {
+                toast.className = "toast show";
+                icon.textContent = "✓";
+                icon.style.backgroundColor = "rgba(16, 185, 129, 0.15)";
+                icon.style.color = "var(--success)";
+            } else {
+                toast.className = "toast show";
+                icon.textContent = "✕";
+                icon.style.backgroundColor = "rgba(239, 68, 68, 0.15)";
+                icon.style.color = "var(--danger)";
+            }
+            
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3500);
+        }
+
+        // Fetch Data from Google Sheets Web App
+        async function fetchCrmData() {
+            const loader = document.getElementById("loading-overlay");
+            loader.classList.add("active");
+            
+            const password = sessionStorage.getItem("reclub_admin_token");
+            if (!password) return;
+            
+            const url = `${SHEETS_URL}?action=get_dashboard&password=${password}`;
+            
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                if (data.status === "success") {
+                    rawLeads = data.leads || [];
+                    rawAmbassadors = data.ambassadors || [];
+                    rawAgencies = data.agencies || [];
+                    
+                    // Render UI components
+                    renderDashboardKpis();
+                    renderLeadsTable();
+                    renderAmbassadorsTable();
+                    renderAgenciesTable();
+                    
+                    showToast("Dati sincronizzati con Google Sheets con successo", "success");
+                } else {
+                    showToast(data.message || "Errore sconosciuto", "error");
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("Errore di rete durante la connessione con Google Sheets", "error");
+            } finally {
+                loader.classList.remove("active");
+            }
+        }
+
+        // Render Dashboard KPI Cards & Recent Leads
+        function renderDashboardKpis() {
+            // Stats
+            document.getElementById("kpi-total-leads").textContent = rawLeads.length;
+            document.getElementById("kpi-total-ambassadors").textContent = rawAmbassadors.length;
+            document.getElementById("kpi-total-agencies").textContent = rawAgencies.length;
+            
+            const pendingLeads = rawLeads.filter(l => l.stato === "In Verifica").length;
+            document.getElementById("kpi-pending-leads").textContent = pendingLeads;
+            
+            const pendingAgencies = rawAgencies.filter(a => a.stato === "In Attesa" || a.stato === "In attesa").length;
+            document.getElementById("kpi-pending-agencies").textContent = pendingAgencies;
+            
+            // Calculate Total Estimated Value of active leads (excluding rejected)
+            let totalValue = 0;
+            rawLeads.forEach(l => {
+                if (l.stato !== "Rifiutato") {
+                    const val = parseFloat(l.valoreStimato) || 250000;
+                    totalValue += val;
+                }
+            });
+            
+            document.getElementById("kpi-valore-stimato").textContent = "€ " + totalValue.toLocaleString("it-IT");
+            
+            // Render Recent Table (max 5)
+            const recentTbody = document.getElementById("recent-leads-tbody");
+            recentTbody.innerHTML = "";
+            
+            const recentLeads = [...rawLeads].reverse().slice(0, 5);
+            
+            if (recentLeads.length === 0) {
+                recentTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Nessuna segnalazione trovata.</td></tr>`;
+                return;
+            }
+            
+            recentLeads.forEach(lead => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="highlight-cell">${lead.idSegnalazione || lead.id}</td>
+                    <td>${formatDate(lead.data)}</td>
+                    <td>${lead.indirizzoImmobile || lead.address}</td>
+                    <td>${lead.tipologia || lead.propertyType}</td>
+                    <td>€ ${(parseFloat(lead.valoreStimato) || 250000).toLocaleString("it-IT")}</td>
+                    <td>${lead.nomeAmbassador || "N/D"}</td>
+                    <td><span class="status-badge ${getStatusBadgeClass(lead.stato)}">${lead.stato || "In Verifica"}</span></td>
+                `;
+                recentTbody.appendChild(tr);
+            });
+        }
+
+        // Render Leads Tab
+        function renderLeadsTable() {
+            const tbody = document.getElementById("leads-tbody");
+            tbody.innerHTML = "";
+            
+            const searchTerm = document.getElementById("search-leads").value.toLowerCase();
+            const statusFilter = document.getElementById("filter-leads-status").value;
+            
+            // Filter Leads
+            const filteredLeads = rawLeads.filter(lead => {
+                const address = (lead.indirizzoImmobile || lead.address || "").toLowerCase();
+                const owner = (lead.nomeProprietario || lead.ownerName || "").toLowerCase();
+                const ambassador = (lead.nomeAmbassador || "").toLowerCase();
+                const matchesSearch = address.includes(searchTerm) || owner.includes(searchTerm) || ambassador.includes(searchTerm);
+                
+                const matchesStatus = statusFilter === "ALL" || lead.stato === statusFilter;
+                
+                return matchesSearch && matchesStatus;
+            });
+            
+            if (filteredLeads.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 30px;">Nessuna segnalazione corrisponde ai filtri.</td></tr>`;
+                return;
+            }
+            
+            filteredLeads.reverse().forEach(lead => {
+                const leadId = lead.idSegnalazione || lead.id;
+                const tr = document.createElement("tr");
+                
+                // Dropdown to update status in-line
+                const statusOptions = ["In Verifica", "Assegnazione In Corso", "Assegnato ad Agenzia", "Mandato Firmato", "Scouting Completato", "Rifiutato"];
+                let selectHtml = `<select class="status-select-inline" onchange="updateLeadStatus('${leadId}', this.value)">`;
+                statusOptions.forEach(opt => {
+                    const selected = lead.stato === opt ? "selected" : "";
+                    selectHtml += `<option value="${opt}" ${selected}>${opt}</option>`;
+                });
+                selectHtml += `</select>`;
+                
+                // Smistamento Button
+                let smistamentoButton = "";
+                if (lead.stato === "In Verifica" || lead.stato === "Rifiutato") {
+                    smistamentoButton = `<button class="btn-action-sm btn-action-gold" onclick="openDispatchModal('${leadId}', '${escapeHtml(lead.indirizzoImmobile || lead.address || '')}', '${escapeHtml(lead.tipologia || lead.propertyType || '')}')">Smista ad Agenzia</button>`;
+                } else {
+                    smistamentoButton = `<span style="font-size:12px; color:var(--text-muted);">Assegnazione avviata</span>`;
+                }
+                
+                tr.innerHTML = `
+                    <td class="highlight-cell">${leadId}</td>
+                    <td style="font-size:12px;">${formatDate(lead.data)}</td>
+                    <td>
+                        <strong>${lead.nomeProprietario || lead.ownerName}</strong><br>
+                        <span style="font-size:12px; color:var(--text-muted);">${lead.telefonoProprietario || lead.ownerPhone}</span>
+                    </td>
+                    <td style="font-size:13px;">
+                        <strong>${lead.indirizzoImmobile || lead.address}</strong><br>
+                        <span style="font-size:12px; color:var(--text-muted);">${lead.tipologia || lead.propertyType}</span>
+                    </td>
+                    <td>€ ${(parseFloat(lead.valoreStimato) || 250000).toLocaleString("it-IT")}</td>
+                    <td>
+                        <strong>${lead.nomeAmbassador}</strong><br>
+                        <span style="font-size:12px; color:var(--text-muted);">${lead.telefonoAmbassador}</span>
+                    </td>
+                    <td>${lead.agenziaAssegnata || lead.agencyName || "Non Assegnata"}</td>
+                    <td>${selectHtml}</td>
+                    <td>${smistamentoButton}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Render Ambassadors Tab
+        function renderAmbassadorsTable() {
+            const tbody = document.getElementById("ambassadors-tbody");
+            tbody.innerHTML = "";
+            
+            const searchTerm = document.getElementById("search-ambassadors").value.toLowerCase();
+            
+            const filteredAmbassadors = rawAmbassadors.filter(amb => {
+                const name = (amb.nome || "").toLowerCase();
+                const cognome = (amb.cognome || "").toLowerCase();
+                const fullName = `${name} ${cognome}`;
+                const email = (amb.email || "").toLowerCase();
+                const phone = (amb.telefono || "").toLowerCase();
+                
+                return fullName.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm);
+            });
+            
+            if (filteredAmbassadors.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Nessun ambassador corrisponde ai parametri.</td></tr>`;
+                return;
+            }
+            
+            filteredAmbassadors.forEach(amb => {
+                // Calculate performance metrics (leads signaled by this ambassador)
+                const ambassadorName = `${amb.nome || ''} ${amb.cognome || ''}`.trim();
+                const signals = rawLeads.filter(l => (l.nomeAmbassador || "").toLowerCase() === ambassadorName.toLowerCase());
+                const count = signals.length;
+                
+                tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="highlight-cell">${amb.idAmbassador}</td>
+                    <td>${formatDate(amb.dataRegistrazione)}</td>
+                    <td><strong>${ambassadorName}</strong></td>
+                    <td>${amb.email}</td>
+                    <td>${amb.telefono}</td>
+                    <td style="text-align:center;"><strong>${count}</strong></td>
+                    <td><span class="status-badge status-attivo">${amb.stato || "Attivo"}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Render Agencies Tab
+        function renderAgenciesTable() {
+            const tbody = document.getElementById("agencies-tbody");
+            tbody.innerHTML = "";
+            
+            const searchTerm = document.getElementById("search-agencies").value.toLowerCase();
+            
+            const filteredAgencies = rawAgencies.filter(ag => {
+                const name = (ag.nomeAgenzia || "").toLowerCase();
+                const city = (ag.cittDiCompetenza || "").toLowerCase();
+                const contact = (ag.nomeReferente || "").toLowerCase();
+                
+                return name.includes(searchTerm) || city.includes(searchTerm) || contact.includes(searchTerm);
+            });
+            
+            if (filteredAgencies.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 30px;">Nessuna agenzia corrisponde ai parametri di ricerca.</td></tr>`;
+                return;
+            }
+            
+            filteredAgencies.forEach(ag => {
+                const state = ag.stato || "In Attesa";
+                const isPending = state === "In Attesa" || state === "In attesa";
+                const agId = ag.idAgenzia;
+                
+                let actionBtn = "";
+                if (isPending) {
+                    actionBtn = `<button class="btn-action-sm btn-action-gold" onclick="activateAgency('${agId}')">Attiva Profilo</button>`;
+                } else {
+                    actionBtn = `<span style="font-size:12px; color:var(--text-muted);">Attivo • Sbloccato</span>`;
+                }
+                
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="highlight-cell">${agId}</td>
+                    <td>${formatDate(ag.dataRegistrazione)}</td>
+                    <td><strong>${ag.nomeAgenzia}</strong></td>
+                    <td>${ag.cittDiCompetenza || ag.cityServed || "N/D"}</td>
+                    <td>${ag.nomeReferente}</td>
+                    <td>${ag.emailReferente || ag.email}</td>
+                    <td>${ag.telefonoReferente || ag.phone || "N/D"}</td>
+                    <td><span class="status-badge ${isPending ? 'status-in-verifica' : 'status-mandato'}">${state}</span></td>
+                    <td>${actionBtn}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // API POST: Update Lead Status
+        async function updateLeadStatus(leadId, newStatus) {
+            const loader = document.getElementById("loading-overlay");
+            loader.classList.add("active");
+            
+            const password = sessionStorage.getItem("reclub_admin_token");
+            
+            const payload = {
+                action: "update_lead_status",
+                leadId: leadId,
+                status: newStatus,
+                password: password
+            };
+            
+            try {
+                const res = await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Apps script POST works asynchronously with no-cors
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                showToast("Richiesta di aggiornamento stato inviata. Ricarico...", "success");
+                
+                // Wait slightly to let Apps script write and then refresh local cache
+                setTimeout(() => {
+                    fetchCrmData();
+                }, 2000);
+            } catch (err) {
+                console.error(err);
+                showToast("Errore di rete durante l'invio della richiesta", "error");
+                loader.classList.remove("active");
+            }
+        }
+
+        // API POST: Activate Pending B2B Agency
+        async function activateAgency(agencyId) {
+            const loader = document.getElementById("loading-overlay");
+            loader.classList.add("active");
+            
+            const password = sessionStorage.getItem("reclub_admin_token");
+            
+            const payload = {
+                action: "activate_agency",
+                agencyId: agencyId,
+                password: password
+            };
+            
+            try {
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                showToast("Richiesta attivazione agenzia inviata. Ricarico...", "success");
+                
+                setTimeout(() => {
+                    fetchCrmData();
+                }, 2000);
+            } catch (err) {
+                console.error(err);
+                showToast("Errore di rete durante l'attivazione", "error");
+                loader.classList.remove("active");
+            }
+        }
+
+        // Open Dispatch Modal
+        function openDispatchModal(leadId, address, propertyType) {
+            activeDispatchLeadId = leadId;
+            document.getElementById("modal-lead-address").textContent = address + " (" + propertyType + ")";
+            
+            // Build the agency options dropdown (only Active agencies)
+            const select = document.getElementById("modal-agency-select");
+            select.innerHTML = '<option value="">-- Seleziona un\'Agenzia Partner --</option>';
+            
+            const activeAgencies = rawAgencies.filter(ag => (ag.stato || "").toLowerCase() === "attiva");
+            
+            if (activeAgencies.length === 0) {
+                select.innerHTML = '<option value="">Nessuna agenzia attiva disponibile. Attivane una prima.</option>';
+                document.getElementById("btn-modal-confirm").disabled = true;
+            } else {
+                activeAgencies.forEach(ag => {
+                    const opt = document.createElement("option");
+                    opt.value = ag.idAgenzia;
+                    opt.textContent = `${ag.nomeAgenzia} - Presidia: ${ag.cittDiCompetenza || 'N/D'}`;
+                    select.appendChild(opt);
+                });
+                document.getElementById("btn-modal-confirm").disabled = false;
+            }
+            
+            document.getElementById("dispatch-modal").classList.add("show");
+        }
+
+        // Close Dispatch Modal
+        document.getElementById("btn-modal-cancel").addEventListener("click", () => {
+            document.getElementById("dispatch-modal").classList.remove("show");
+            activeDispatchLeadId = null;
+        });
+
+        // Confirm Dispatch Lead to selected Agency
+        document.getElementById("btn-modal-confirm").addEventListener("click", async () => {
+            const agencyId = document.getElementById("modal-agency-select").value;
+            if (!agencyId || !activeDispatchLeadId) {
+                showToast("Seleziona un'agenzia valida per lo smistamento", "error");
+                return;
+            }
+            
+            document.getElementById("dispatch-modal").classList.remove("show");
+            
+            const loader = document.getElementById("loading-overlay");
+            loader.classList.add("active");
+            
+            const password = sessionStorage.getItem("reclub_admin_token");
+            
+            const payload = {
+                action: "dispatch_lead",
+                leadId: activeDispatchLeadId,
+                agencyId: agencyId,
+                password: password
+            };
+            
+            try {
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                showToast("Proposta inviata con successo all'agenzia. Ricarico...", "success");
+                
+                setTimeout(() => {
+                    fetchCrmData();
+                }, 2000);
+            } catch (err) {
+                console.error(err);
+                showToast("Errore di rete durante lo smistamento", "error");
+                loader.classList.remove("active");
+            }
+        });
+
+        // Filter event listeners
+        document.getElementById("search-leads").addEventListener("input", renderLeadsTable);
+        document.getElementById("filter-leads-status").addEventListener("change", renderLeadsTable);
+        document.getElementById("search-ambassadors").addEventListener("input", renderAmbassadorsTable);
+        document.getElementById("search-agencies").addEventListener("input", renderAgenciesTable);
+
+        // Date formatter
+        function formatDate(dateStr) {
+            if (!dateStr) return "N/D";
+            try {
+                // If it's already a clean string
+                if (dateStr.includes("/")) return dateStr.split(" ")[0];
+                const d = new Date(dateStr);
+                if (isNaN(d.getTime())) return dateStr;
+                return d.toLocaleDateString("it-IT");
+            } catch (e) {
+                return dateStr;
+            }
+        }
+
+        // Helper: Status badge color picker
+        function getStatusBadgeClass(status) {
+            if (!status) return "status-in-verifica";
+            const s = status.trim();
+            if (s === "In Verifica") return "status-in-verifica";
+            if (s === "Assegnazione In Corso") return "status-assegnazione";
+            if (s === "Assegnato ad Agenzia" || s === "Assegnato") return "status-assegnato";
+            if (s === "Mandato Firmato") return "status-mandato";
+            if (s === "Scouting Completato" || s === "Rogito Concluso") return "status-rogito";
+            if (s === "Rifiutato") return "status-rifiutato";
+            return "status-in-verifica";
+        }
+
+        // Helper: escape HTML tags to prevent XSS in modal rendering
+        function escapeHtml(str) {
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // CSV Export Helper
+        function downloadCsv(headers, rows, filename) {
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Adds UTF-8 BOM
+            
+            // Append header
+            csvContent += headers.join(",") + "\n";
+            
+            // Append rows
+            rows.forEach(row => {
+                const escapedRow = row.map(val => {
+                    const strVal = val ? String(val) : "";
+                    // Escapes double quotes
+                    return `"${strVal.replace(/"/g, '""')}"`;
+                });
+                csvContent += escapedRow.join(",") + "\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // CSV Exports Hooks
+        document.getElementById("btn-export-leads").addEventListener("click", () => {
+            const headers = ["ID Lead", "Data", "Indirizzo", "Tipologia", "Valore Stimato", "Proprietario", "Telefono Proprietario", "Ambassador", "Agenzia Assegnata", "Stato"];
+            const rows = rawLeads.map(l => [
+                l.idSegnalazione || l.id,
+                l.data,
+                l.indirizzoImmobile || l.address,
+                l.tipologia || l.propertyType,
+                l.valoreStimato || 250000,
+                l.nomeProprietario || l.ownerName,
+                l.telefonoProprietario || l.ownerPhone,
+                l.nomeAmbassador,
+                l.agenziaAssegnata || "N/D",
+                l.stato
+            ]);
+            downloadCsv(headers, rows, "ReClub_Segnalazioni.csv");
+        });
+
+        document.getElementById("btn-export-ambassadors").addEventListener("click", () => {
+            const headers = ["ID Ambassador", "Data Iscrizione", "Nome", "Cognome", "Email", "Telefono", "Stato"];
+            const rows = rawAmbassadors.map(a => [
+                a.idAmbassador,
+                a.dataRegistrazione,
+                a.nome,
+                a.cognome,
+                a.email,
+                a.telefono,
+                a.stato
+            ]);
+            downloadCsv(headers, rows, "ReClub_Ambassador.csv");
+        });
+
+        document.getElementById("btn-export-agencies").addEventListener("click", () => {
+            const headers = ["ID Agenzia", "Data Registrazione", "Nome Agenzia", "Città di Competenza", "Nome Referente", "Email Referente", "Telefono Referente", "Stato"];
+            const rows = rawAgencies.map(ag => [
+                ag.idAgenzia,
+                ag.dataRegistrazione,
+                ag.nomeAgenzia,
+                ag.cittDiCompetenza,
+                ag.nomeReferente,
+                ag.emailReferente,
+                ag.telefonoReferente,
+                ag.stato
+            ]);
+            downloadCsv(headers, rows, "ReClub_Agenzie_Partner.csv");
+        });
+    </script>
+</body>
+</html>

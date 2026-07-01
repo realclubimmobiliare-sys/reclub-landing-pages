@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReClub B2B | Collaborazione Agenzie Immobiliari Partner</title>
+    <meta name="description" content="Ricevi incarichi di vendita immobiliari esclusivi e pre-qualificati nella tua zona. Zero costi fissi, zero abbonamenti. Entra nel network nazionale ReClub.">
+    
+    <!-- SEO Meta Tags -->
+    <link rel="canonical" href="https://reclubitalia.it/landing_b2b.html" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" href="icon.png" type="image/png">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ReClub B2B | Partner Network per Agenzie Immobiliari" />
+    <meta property="og:description" content="Espandi il tuo portafoglio immobili con segnalazioni verificate ed esclusive. Paghi solo al successo avvenuto." />
+    <meta property="og:image" content="https://reclubitalia.it/reclub_hero_bg.png" />
+    <meta property="og:url" content="https://reclubitalia.it/landing_b2b.html" />
+    <meta property="og:site_name" content="ReClub" />
+    <meta property="og:locale" content="it_IT" />
+
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fcfbfa; /* Warm premium off-white/cream */
+            --surface-color: #ffffff; /* Clean white for cards */
+            --surface-border: rgba(12, 35, 64, 0.08); /* Soft navy-tinted border */
+            --primary: #0c2340; /* Deep Navy Blue for trust & authority */
+            --primary-hover: #14355e;
+            --primary-glow: rgba(12, 35, 64, 0.05);
+            --secondary: #c5a059; /* Warm Bronze/Gold representing prestige */
+            --secondary-hover: #b38e47;
+            --secondary-glow: rgba(197, 160, 89, 0.12);
+            --text-main: #1e293b; /* Dark charcoal */
+            --text-muted: #576575; /* Muted slate */
+            --text-inverse: #ffffff;
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --accent-gold: #c5a059;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HEADER */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--surface-border);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(252, 251, 250, 0.9);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .badge-premium {
+            background: var(--secondary-glow);
+            border: 1px solid var(--secondary);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-link-b2c {
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+            border: 1.5px solid var(--secondary);
+            padding: 8px 18px;
+            border-radius: 50px;
+            background-color: transparent;
+            display: inline-block;
+        }
+
+        .header-link-b2c:hover {
+            background-color: var(--secondary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px var(--secondary-glow);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .hide-mobile {
+                display: none;
+            }
+            .header-link-b2c {
+                font-size: 11px;
+                padding: 6px 12px;
+                border-width: 1.2px;
+            }
+            .badge-premium {
+                display: none !important; /* Nascondi su mobile per liberare spazio ed evitare che il tasto si incolli al logo */
+            }
+            header {
+                padding: 15px 0;
+            }
+            .logo {
+                font-size: 22px;
+            }
+        }
+
+        /* HERO SECTION WITH FORM */
+        .hero-section {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .hero-left {
+            padding-top: 20px;
+        }
+
+        /* Media query rimossa per corretto ordinamento CSS a cascata */
+
+        .hero-tagline {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: var(--secondary-glow);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--primary);
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+
+        /* Micro-benefits on Left */
+        .bullet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .bullet-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .bullet-icon {
+            background-color: var(--secondary-glow);
+            color: var(--secondary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .bullet-text strong {
+            color: var(--primary);
+        }
+
+        .bullet-text p {
+            font-size: 14.5px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 968px) {
+            .hero-left {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 0;
+            }
+            h1 {
+                font-size: 35px; /* Grande impatto e coerenza con la B2C */
+                line-height: 1.15;
+                letter-spacing: -1.2px;
+                text-align: center;
+                margin-bottom: 18px;
+            }
+            .hero-desc {
+                font-size: 16.5px;
+                line-height: 1.6;
+                text-align: center;
+                margin-bottom: 28px;
+            }
+            .bullet-list {
+                text-align: left; /* Allineamento a sinistra interno per leggibilità delle spunte, ma centrato come blocco */
+                max-width: 500px;
+                margin: 0 auto 24px auto;
+            }
+        }
+
+        /* FORM CARD (GLASSMORPHISM) */
+        .form-card {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 15px 35px rgba(12, 35, 64, 0.04);
+            position: sticky;
+            top: 100px;
+        }
+
+        .form-card h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .form-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: var(--font-body);
+            font-size: 14.5px;
+            border: 1.5px solid var(--surface-border);
+            border-radius: 12px;
+            background-color: #fafafa;
+            color: var(--text-main);
+            transition: all 0.25s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px var(--secondary-glow);
+        }
+
+        /* Privacy Checkbox */
+        .privacy-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .privacy-checkbox {
+            margin-top: 4px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .privacy-label {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .privacy-label a {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), #102d52);
+            color: #ffffff;
+            border: none;
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 15px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(12, 35, 64, 0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(12, 35, 64, 0.22);
+            background: linear-gradient(135deg, var(--primary-hover), #143763);
+        }
+
+        .btn-submit:disabled {
+            background: #cbd5e1;
+            color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Loader inside button */
+        .btn-loader {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* TARIFFE A SCAGLIONI SECTION */
+        .tiers-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--surface-border);
+            background-color: #f6f5f2; /* Soft grey-beige */
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .table-wrapper {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(12, 35, 64, 0.02);
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 18px 24px;
+        }
+
+        td {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--surface-border);
+            font-size: 14.5px;
+            color: var(--text-main);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(12, 35, 64, 0.01);
+        }
+
+        .highlight-cell {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .gold-cell {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .table-wrapper {
+                overflow-x: auto;
+            }
+            table {
+                min-width: 700px;
+            }
+        }
+
+        /* HOW IT WORKS */
+        .steps-section {
+            padding-top: 80px;
+            padding-bottom: 80px;
+            border-top: 1px solid var(--surface-border);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .step-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: 20px;
+            padding: 40px 32px 32px 32px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(12, 35, 64, 0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 32px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background-color: var(--primary);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            border: 3px solid var(--bg-color);
+        }
+
+        .step-card.secondary .step-number {
+            background-color: var(--secondary);
+        }
+
+        .step-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            margin-top: 10px;
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FAQ SECTION */
+        .faq-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--surface-border);
+            background-color: #f6f5f2;
+        }
+
+        .faq-grid {
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(12, 35, 64, 0.01);
+        }
+
+        .faq-item h3 {
+            font-family: var(--font-display);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .faq-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 0 40px 0;
+            border-top: 1px solid var(--surface-border);
+            background-color: var(--primary);
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-logo span {
+            color: var(--secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* COOKIE CONSENT BANNER */
+        .cookie-banner {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 48px);
+            max-width: 600px;
+            background: rgba(252, 251, 250, 0.96);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 20px 24px;
+            box-shadow: 0 10px 40px rgba(12, 35, 64, 0.15);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none; /* Prevents blocking clicks when hidden */
+        }
+
+        .cookie-banner.show {
+            bottom: 24px;
+            opacity: 1;
+            pointer-events: auto; /* Restores clicks when visible */
+        }
+
+        .cookie-content {
+            font-size: 13.5px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .cookie-content a {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .cookie-actions-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-cookie {
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cookie-accept {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-cookie-reject {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--surface-border);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">Re<span>Club</span></a>
+            <div class="header-actions" style="display:flex; align-items:center; gap:16px;">
+                <a href="index.html" class="header-link-b2c"><span class="hide-mobile">SEI UN SEGNALATORE? </span>SEGNALA ORA</a>
+                <div class="badge-premium">Rete B2B Nazionale</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section container">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-tagline">Network Agenzie Partner</div>
+                <h1>Acquisisci Incarichi di Vendita Esclusivi e Pre-Qualificati</h1>
+                <p class="hero-desc">
+                    ReClub connette le migliori agenzie immobiliari italiane con venditori qualificati di zona. Ricevi informazioni commerciali verificate e proprietari pronti a vendere. Zero costi fissi, zero rischi: collabora a puro successo.
+                </p>
+
+                <div class="bullet-list">
+                    <div class="bullet-item">
+                        <div class="bullet-icon">✓</div>
+                        <div class="bullet-text">
+                            <strong>Nessun Costo di Abbonamento</strong>
+                            <p>Non paghi alcun canone mensile. La candidatura e l'accesso al network sono gratuiti.</p>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-icon">✓</div>
+                        <div class="bullet-text">
+                            <strong>Lead Pre-Qualificati con Consenso</strong>
+                            <p>Ricevi solo proprietari profilati che hanno richiesto esplicitamente di essere connessi con te (GDPR Safe).</p>
+                        </div>
+                    </div>
+                    <div class="bullet-item">
+                        <div class="bullet-icon">✓</div>
+                        <div class="bullet-text">
+                            <strong>Assegnazione Esclusiva</strong>
+                            <p>Ogni notizia commerciale viene inviata a una sola agenzia per zona geografica alla volta, garantendoti massima conversione.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onboarding Form Card -->
+            <div class="form-card" id="candidatura">
+                <h3>Diventa Agenzia Partner</h3>
+                <p>Candida la tua agenzia per ricevere informazioni commerciali nella tua zona di competenza.</p>
+                
+                <form id="agency-onboarding-form">
+                    <div class="form-group">
+                        <label class="form-label" for="agency-name">Nome Agenzia</label>
+                        <input type="text" id="agency-name" class="form-input" placeholder="Es. Immobiliare Rossi Srl" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="city-served">Città e Zone Presidiate</label>
+                        <input type="text" id="city-served" class="form-input" placeholder="Es. Rimini (centro e mare) o Milano" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-name">Nome Referente</label>
+                        <input type="text" id="contact-name" class="form-input" placeholder="Es. Mario Rossi" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-email">Email Referente</label>
+                        <input type="email" id="contact-email" class="form-input" placeholder="Es. info@immobiliarerossi.it" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-phone">Telefono Referente</label>
+                        <input type="tel" id="contact-phone" class="form-input" placeholder="Es. 347 1234567" required>
+                    </div>
+
+                    <div class="privacy-wrapper">
+                        <input type="checkbox" id="privacy-consent" class="privacy-checkbox" required>
+                        <label for="privacy-consent" class="privacy-label">
+                            Accetto le condizioni della <a href="privacy.html" target="_blank">Privacy Policy</a> e autorizzo il trattamento dei dati personali a fini commerciali.
+                        </label>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-submit">
+                        <span class="btn-loader" id="btn-loader"></span>
+                        <span id="btn-text">Invia Candidatura B2B</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING TIERS (TARIFFARIO) -->
+    <section class="tiers-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tariffe B2B Trasparenti a Risultato</h2>
+                <p>Nessun canone fisso iniziale. Paghi un acconto di screening all'assegnazione ed il saldo del compenso di lead generation concordato solo alla firma del mandato di vendita in esclusiva.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fascia Valore Immobile</th>
+                            <th>Fascia Scouting</th>
+                            <th>Acconto Screening (All'Assegnazione)</th>
+                            <th>Saldo Spettante a ReClub</th>
+                            <th>Totale Fee (A Mandato Firmato)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fino a € 150.000</td>
+                            <td class="highlight-cell">Fascia BRONZE</td>
+                            <td>€ 250 + IVA</td>
+                            <td>€ 2.750 + IVA</td>
+                            <td class="gold-cell">€ 3.000 + IVA</td>
+                        </tr>
+                        <tr>
+                            <td>€ 151.000 - € 350.000</td>
+                            <td class="highlight-cell">Fascia SILVER</td>
+                            <td>€ 250 + IVA</td>
+                            <td>€ 4.250 + IVA</td>
+                            <td class="gold-cell">€ 4.500 + IVA</td>
+                        </tr>
+                        <tr>
+                            <td>€ 351.000 - € 600.000</td>
+                            <td class="highlight-cell">Fascia GOLD</td>
+                            <td>€ 250 + IVA</td>
+                            <td>€ 7.250 + IVA</td>
+                            <td class="gold-cell">€ 7.500 + IVA</td>
+                        </tr>
+                        <tr>
+                            <td>Oltre € 600.000</td>
+                            <td class="highlight-cell">Fascia LUXURY</td>
+                            <td>€ 250 + IVA</td>
+                            <td>€ 16.250 + IVA</td>
+                            <td class="gold-cell">€ 16.500 + IVA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="text-align: center; font-size: 13.5px; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
+                <strong>Nota di Bilancio:</strong> L'Acconto di Screening copre l'attività preliminare di qualificazione ed è detratto dal saldo finale. La fee totale include la quota destinata al compenso per lo Scout Territoriale locale che ha effettuato la mappatura, garantendo la sostenibilità e la motivazione del circuito.
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="steps-section container">
+        <div class="section-header">
+            <h2>Il Flusso di Lavoro Semplificato</h2>
+            <p>Tutto si gestisce con la massima semplicità, senza centralini o burocrazia, direttamente dalla tua casella email.</p>
+        </div>
+        
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Candidatura e Abilitazione</h3>
+                <p>Compila il modulo di Onboarding. Il nostro staff verificherà i tuoi requisiti professionali e attiverà la tua agenzia nel nostro CRM nazionale.</p>
+            </div>
+            <div class="step-card secondary">
+                <div class="step-number">2</div>
+                <h3>Ricezione Proposte Esclusive</h3>
+                <p>Quando arriva una segnalazione nella tua città, ricevi un'email con la scheda tecnica e le foto. I dati del proprietario sono protetti ed oscurati.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Un Clic per Sbloccare i Contatti</h3>
+                <p>Clicca su "Accetta" nell'email: sblocchi all'istante i contatti (Nome, Telefono) del proprietario per contattarlo entro 24 ore e concludere l'incarico.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Risposte alle Domande Frequenti</h2>
+                <p>Tutto quello che c'è da sapere sulle basi commerciali, contabili e legali del network ReClub.</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>È legale ricevere informazioni commerciali a pagamento?</h3>
+                    <p>Assolutamente sì. La giurisprudenza italiana riconosce la piena liceità della compravendita di informazioni commerciali e di lead generation B2B. Questo non costituisce attività di mediazione tipica ai sensi dell'art. 1754 c.c. poiché l'attività di mediazione e trattativa è interamente gestita dalla tua agenzia iscritta al REA.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Come fate a garantire la conformità al GDPR dei dati?</h3>
+                    <p>Tutti i proprietari degli immobili inseriti nel circuito ReClub vengono registrati previo rilascio di un consenso scritto esplicito e informato ("Referral Consenziente"). Quando sblocchi il lead, ti viene trasferito un contatto pienamente legittimo e pronto per essere gestito.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Cosa succede se un lead non è realmente interessato?</h3>
+                    <p>La nostra promessa è fornirti informazioni profilate. Il nostro team esegue uno screening telefonico approfondito prima di caricare il lead nel CRM. Se dovesse verificarsi un errore palese o un recapito non funzionante all'invio, l'acconto di screening viene riaccreditato a tuo favore per la segnalazione successiva.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Cosa succede se scade la finestra di 30 giorni?</h3>
+                    <p>L'agenzia partner ha 30 giorni di tempo per acquisire l'esclusiva. Trascorso questo termine infruttuosamente, ReClub si riserva il diritto di rendere nuovamente disponibile il lead nel CRM per riassegnarlo a un'altra agenzia partner dello stesso comune.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Quali sono i requisiti di durata dell'incarico di vendita (mandato)?</h3>
+                    <p>Per validare la segnalazione e garantire l'erogazione del premio commerciale intero all'Ambassador, l'incarico di vendita deve essere conferito in <strong>esclusiva per una durata minima di 12 mesi (1 anno)</strong>. Qualora l'agenzia acquisisca un mandato in esclusiva di durata inferiore (mandato parziale), il premio dovuto all'Ambassador e i relativi importi commerciali della fee saranno <strong>riproporzionati e partizionati</strong> in base alla durata effettiva dell'esclusiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Re<span>Club</span></div>
+                <div class="footer-links">
+                    <a href="index.html" style="color:var(--secondary); font-weight:700;">Area Scout (Mappa)</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="termini.html">Termini & Condizioni</a>
+                    <a href="https://wa.me/393519333053">Contatti</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 ReClub. Tutti i diritti riservati. ReClub - P.IVA 0474355044 - Sede: Viale Lago di Garda 16, 47922 Rimini (RN) - Email: info@reclubitalia.it - Piattaforma tecnologica di marketing e lead generation. Non esercita attività di mediazione immobiliare ai sensi della Legge 39/1989.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT GESTIONE ONBOARDING FORM -->
+    <script>
+        const SHEETS_URL = "https://script.google.com/macros/s/AKfycbz4A95oeduW3hr8qBJJ4CBoLjlF35uVqA2HG6Mt71pXyOPx5AYZXrATEzosdEr34e4M/exec";
+
+        document.getElementById('agency-onboarding-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const agencyName = document.getElementById('agency-name').value.trim();
+            const cityServed = document.getElementById('city-served').value.trim();
+            const contactName = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+
+            // Stato di caricamento
+            submitBtn.disabled = true;
+            btnText.textContent = "Candidatura in corso...";
+            btnLoader.style.display = "inline-block";
+
+            const payload = {
+                action: "register_agency",
+                agencyName: agencyName,
+                cityServed: cityServed,
+                contactName: contactName,
+                email: email,
+                phone: phone
+            };
+
+            // Prepariamo l'URL di WhatsApp per il reindirizzamento
+            const encodedMsg = encodeURIComponent(`Ciao! Ho appena candidato la nostra agenzia "${agencyName}" di ${cityServed} come Partner B2B su ReClub. Vorremmo procedere all'attivazione del nostro account nel CRM.`);
+            const whatsappUrl = `https://wa.me/393519333053?text=${encodedMsg}`;
+
+            try {
+                // Invio asincrono a Google Sheets (no-cors bypassa problemi di certificati/CORS con Apps Script)
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                // Notifica di successo fittizia o caricamento completato prima del redirect
+                setTimeout(() => {
+                    window.location.href = whatsappUrl;
+                }, 1200);
+
+            } catch (error) {
+                console.error("Errore durante l'invio:", error);
+                // Nonostante l'errore CORS (se bloccato localmente), forziamo il redirect a WhatsApp poiché i dati in no-cors passano comunque
+                setTimeout(() => {
+                    window.location.href = whatsappUrl;
+                }, 1500);
+            }
+        });
+    </script>
+
+    <!-- COOKIE CONSENT BANNER HTML & JS -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>ReClub utilizza cookie statistici per comprendere come gli utenti interagiscono con il sito in modo del tutto anonimo ed etico. I tracciamenti si attiveranno solo in caso di consenso. Consulta la nostra <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
+        </div>
+        <div class="cookie-actions-btns">
+            <button id="cookie-reject" class="btn-cookie btn-cookie-reject">Rifiuta</button>
+            <button id="cookie-accept" class="btn-cookie btn-cookie-accept">Accetta Tutti</button>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAZIONE CODICI DI TRACCIAMENTO (Sostituisci con i tuoi codici reali)
+        const GA4_MEASUREMENT_ID = "G-DT0XWGVGFZ"; // Sostituisci con il tuo ID Google Analytics (es. G-12345678)
+        const CLARITY_PROJECT_ID = "xd68jboueq";  // Sostituisci con il tuo ID progetto Microsoft Clarity
+
+        // Funzione per caricare Google Analytics 4
+        function loadGoogleAnalytics(id) {
+            if (!id || id === "G-XXXXXXXXXX") return;
+            
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', id, { 'anonymize_ip': true }); // Anonimizzazione obbligatoria per GDPR
+        }
+
+        // Funzione per caricare Microsoft Clarity
+        function loadClarity(id) {
+            if (!id || id === "XXXXXXXXXX") return;
+            
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window,document,"clarity","script",id);
+        }
+
+        // Attiva tracciamento solo se c'è consenso
+        function activateTracking() {
+            loadGoogleAnalytics(GA4_MEASUREMENT_ID);
+            loadClarity(CLARITY_PROJECT_ID);
+            console.log("Cookie accettati: tracciamenti GA4 e Clarity attivati.");
+        }
+
+        // Inizializzazione al caricamento della pagina
+        document.addEventListener("DOMContentLoaded", () => {
+            const consent = localStorage.getItem('reclub_cookie_consent');
+            const banner = document.getElementById('cookie-banner');
+            const btnAccept = document.getElementById('cookie-accept');
+            const btnReject = document.getElementById('cookie-reject');
+
+            if (consent === 'accepted') {
+                activateTracking();
+            } else if (consent === 'rejected') {
+                console.log("Navigazione anonima attiva. Tracciamento disattivato.");
+            } else {
+                // Mostra il banner dopo 1.5 secondi con transizione elegante
+                setTimeout(() => {
+                    banner.classList.add('show');
+                }, 1500);
+            }
+
+            btnAccept.addEventListener('click', () => {
+                localStorage.setItem('reclub_cookie_consent', 'accepted');
+                banner.classList.remove('show');
+                activateTracking();
+            });
+
+            btnReject.addEventListener('click', () => {
+                localStorage.setItem('reclub_cookie_consent', 'rejected');
+                banner.classList.remove('show');
+                console.log("Cookie rifiutati dall'utente.");
+            });
+        });
+    </script>
+
+</body>
+</html>

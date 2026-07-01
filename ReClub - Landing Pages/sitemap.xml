@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Landing Page Principale B2C -->
+  <url>
+    <loc>https://reclubitalia.it/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+  
+  <!-- Landing Page B2B -->
+  <url>
+    <loc>https://reclubitalia.it/landing_b2b.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://reclubitalia.it/privacy.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.30</priority>
+  </url>
+  
+  <!-- Termini di Servizio -->
+  <url>
+    <loc>https://reclubitalia.it/termini.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.30</priority>
+  </url>
+</urlset>

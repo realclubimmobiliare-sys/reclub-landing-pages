@@ -1,0 +1,8 @@
+# Robots.txt per ReClub - reclubitalia.it
+# Consente la scansione a tutti i motori di ricerca tradizionali e ai crawler AI per ottimizzazione GEO (Generative Engine Optimization)
+
+User-agent: *
+Allow: /
+
+# Sitemap ufficiale
+Sitemap: https://reclubitalia.it/sitemap.xml
