@@ -1187,7 +1187,7 @@
             recentLeads.forEach(lead => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                    <td class="highlight-cell">${lead.idSegnalazione || lead.id}</td>
+                    <td class="highlight-cell">${lead.idSchedaScouting || lead.idSegnalazione || lead.id}</td>
                     <td>${formatDate(lead.data)}</td>
                     <td>${lead.indirizzoImmobile || lead.address}</td>
                     <td>${lead.tipologia || lead.propertyType}</td>
@@ -1225,7 +1225,7 @@
             }
             
             filteredLeads.reverse().forEach(lead => {
-                const leadId = lead.idSegnalazione || lead.id;
+                const leadId = lead.idSchedaScouting || lead.idSegnalazione || lead.id;
                 const tr = document.createElement("tr");
                 
                 // Dropdown to update status in-line
@@ -1653,7 +1653,7 @@
         document.getElementById("btn-export-leads").addEventListener("click", () => {
             const headers = ["ID Lead", "Data", "Indirizzo", "Tipologia", "Valore Stimato", "Proprietario", "Telefono Proprietario", "Ambassador", "Agenzia Assegnata", "Stato"];
             const rows = rawLeads.map(l => [
-                l.idSegnalazione || l.id,
+                l.idSchedaScouting || l.idSegnalazione || l.id,
                 l.data,
                 l.indirizzoImmobile || l.address,
                 l.tipologia || l.propertyType,
