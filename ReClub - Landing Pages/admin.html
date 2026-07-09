@@ -1431,29 +1431,101 @@
             }
         }
 
-        // Open Dispatch Modal
+        // Open Dispatch Modal with Automatic Agency Matching Suggestions
         function openDispatchModal(leadId, address, propertyType) {
             activeDispatchLeadId = leadId;
             document.getElementById("modal-lead-address").textContent = address + " (" + propertyType + ")";
             
-            // Build the agency options dropdown (only Active agencies)
             const select = document.getElementById("modal-agency-select");
-            select.innerHTML = '<option value="">-- Seleziona un\'Agenzia Partner --</option>';
+            select.innerHTML = "";
+            
+            // Extract ZIP code (CAP) from property address (5 consecutive digits)
+            const capMatch = address.match(/\b\d{5}\b/);
+            const leadCap = capMatch ? capMatch[0] : null;
             
             const activeAgencies = rawAgencies.filter(ag => (ag.stato || "").toLowerCase() === "attiva");
             
             if (activeAgencies.length === 0) {
                 select.innerHTML = '<option value="">Nessuna agenzia attiva disponibile. Attivane una prima.</option>';
                 document.getElementById("btn-modal-confirm").disabled = true;
-            } else {
-                activeAgencies.forEach(ag => {
+                document.getElementById("dispatch-modal").classList.add("show");
+                return;
+            }
+            
+            const matchedAgencies = [];
+            const otherAgencies = [];
+            
+            activeAgencies.forEach(ag => {
+                const cityCompetence = (ag.cittDiCompetenza || ag.cityServed || "").toLowerCase();
+                let isMatch = false;
+                
+                if (leadCap && cityCompetence.includes(leadCap)) {
+                    isMatch = true;
+                } else {
+                    // Try to match by city name (extract words longer than 3 chars from competence field)
+                    const cityWords = cityCompetence.split(/[\s,.-]+/);
+                    for (let word of cityWords) {
+                        if (word.length > 3 && address.toLowerCase().includes(word.toLowerCase())) {
+                            isMatch = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (isMatch) {
+                    matchedAgencies.push(ag);
+                } else {
+                    otherAgencies.push(ag);
+                }
+            });
+            
+            // 1. Group for Suggested Agencies (Geographical Match)
+            if (matchedAgencies.length > 0) {
+                const optGroupMatched = document.createElement("optgroup");
+                optGroupMatched.label = "🌟 AGENZIE CONSIGLIATE (Match Geografico)";
+                
+                matchedAgencies.forEach(ag => {
                     const opt = document.createElement("option");
                     opt.value = ag.idAgenzia;
-                    opt.textContent = `${ag.nomeAgenzia} - Presidia: ${ag.cittDiCompetenza || 'N/D'}`;
-                    select.appendChild(opt);
+                    opt.textContent = `✨ ${ag.nomeAgenzia} (Presidia: ${ag.cittDiCompetenza || 'N/D'})`;
+                    opt.style.fontWeight = "bold";
+                    optGroupMatched.appendChild(opt);
                 });
-                document.getElementById("btn-modal-confirm").disabled = false;
+                select.appendChild(optGroupMatched);
             }
+            
+            // 2. Group for Other Active Agencies
+            if (otherAgencies.length > 0) {
+                const optGroupOthers = document.createElement("optgroup");
+                optGroupOthers.label = "Altre Agenzie Attive";
+                
+                otherAgencies.forEach(ag => {
+                    const opt = document.createElement("option");
+                    opt.value = ag.idAgenzia;
+                    opt.textContent = `${ag.nomeAgenzia} (Presidia: ${ag.cittDiCompetenza || 'N/D'})`;
+                    optGroupOthers.appendChild(opt);
+                });
+                select.appendChild(optGroupOthers);
+            }
+            
+            // Auto-select the first suggested matching agency, or show a default placeholder
+            if (matchedAgencies.length > 0) {
+                select.value = matchedAgencies[0].idAgenzia;
+                document.getElementById("btn-modal-confirm").disabled = false;
+            } else {
+                const defaultOpt = document.createElement("option");
+                defaultOpt.value = "";
+                defaultOpt.textContent = "-- Seleziona un'Agenzia Partner --";
+                defaultOpt.disabled = true;
+                defaultOpt.selected = true;
+                select.insertBefore(defaultOpt, select.firstChild);
+                document.getElementById("btn-modal-confirm").disabled = true;
+            }
+            
+            // Enable confirm button once a selection is made
+            select.addEventListener("change", () => {
+                document.getElementById("btn-modal-confirm").disabled = (select.value === "");
+            });
             
             document.getElementById("dispatch-modal").classList.add("show");
         }
